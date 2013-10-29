@@ -1,0 +1,40 @@
+Ext.define('Pku.view.user.Edit',{
+    extend:'Ext.window.Window',
+	alias:'widget.useredit',
+	
+	title:'编辑用户信息',
+	layout:'fit',
+	autoShow:'true',
+	
+	initComponent:function(){
+	   this.items=[
+	   {
+	      xtype:'form',
+	      items:[
+		  {
+		    xtype:'textfield',
+			name:'name',
+			fieldLabel:'姓名'
+		  },
+		  {
+			xtype:'textfield',
+			name:'email',
+			fieldLabel:'邮箱/用户名'
+		  }
+		  ]
+	   }
+	   ];
+	   this.buttons=[
+	   { 
+	     text:'保存',
+	     action:'save'
+	   },
+	   {
+	      text:'取消',
+		  scope:this,
+		  handler:this.close
+	   }
+	   ];
+	   this.callParent(arguments);
+	}
+});

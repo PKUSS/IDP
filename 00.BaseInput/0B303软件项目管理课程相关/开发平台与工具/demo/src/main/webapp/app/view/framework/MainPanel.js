@@ -1,0 +1,13 @@
+Ext.define('Pku.view.framework.MainPanel',{
+    extend:'Ext.tab.Panel',
+	alias:'widget.mainpanel',
+	region:'center',
+	activeTab:0,
+		items:[
+		       {
+				   xtype:'userlist',
+		    	   title:'用户管理',
+		    	   html:'欢迎使用后台管理系统'
+		       }
+		],
+	});

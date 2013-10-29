@@ -1,0 +1,224 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.pku.idp</groupId>
+	<artifactId>demo</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Peking University</name>
+	<inceptionYear>2013</inceptionYear>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<finalName>demo</finalName>
+	</properties>
+	<!--maven 打包部署配置-->
+	<build>
+		<finalName>${finalName}</finalName>
+		<plugins>
+		<!--maven 的编译插件-->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<!--maven 的单元测试插件-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.13</version>
+				<configuration>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<!--maven war包插件-->
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- maven 与tomcat6的集成插件 可以在maven中提供部署，卸载命令
+			mvn tomcat:deploy
+			mvn tomcat:redeploy
+			mvn tomcat:undeploy
+			用tomcat7则需要更改插件，详见插件的站点:
+			http://tomcat.apache.org/maven-plugin-2.0-beta-1/
+			-->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat6-maven-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+
+			<!-- After compilation, run: mvn exec:java or do it all together: mvn 
+				clean compile exec:java
+				安装好tomcat后，根据tomcat管理员的用户名和密码进行配置
+				-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<url>http://localhost:8080/manager</url>
+					<username>tomcat</username>
+					<password>tomcat</password>
+					<path>/${finalName}</path>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<!--maven 依赖下载的公共库-->
+	<repositories>
+		<repository>
+			<id>apache.nexus</id>
+			<name>ASF Nexus Staging</name>
+			<url>https://repository.apache.org/content/groups/staging/</url>
+		</repository>
+		<repository>
+			<id>springsource-repo</id>
+			<name>SpringSource Repository</name>
+			<url>http://repo.springsource.org/release</url>
+		</repository>
+	 <repository>
+        <id>sonatype.oss.snapshots</id>
+        <name>Sonatype OSS Snapshot Repository</name>
+        <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+	</repositories>
+
+	<dependencies>
+		<!-- 使用的servlet的版本 using servlet version 2.5 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!-- hibernate 支持 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.2.1.Final</version>
+		</dependency>
+		<!-- hibernate genericdao 支持 -->
+		<dependency>
+			<groupId>com.googlecode.genericdao</groupId>
+			<artifactId>dao</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.genericdao</groupId>
+			<artifactId>search-jpa-hibernate</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+
+		<!-- 使用 Log4J 打印日志 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!--  数据库；连接依赖 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.14</version>
+		</dependency>
+		<!--以下为 Spring框架 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>3.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>3.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>3.2.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.2.2.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- 以下为 struts2 框架 -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-convention-plugin</artifactId>
+			<version>2.3.14 </version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-json-plugin</artifactId>
+			<version>2.3.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-spring-plugin</artifactId>
+			<version>2.3.14</version>
+		</dependency>
+		<!-- Using Apache Shiro for security 安全框架shiro -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+		
+	</dependencies>
+	<description>A sample Developed by a student of software school in Peking University. With the purpose learning java develope skills~</description>
+</project>

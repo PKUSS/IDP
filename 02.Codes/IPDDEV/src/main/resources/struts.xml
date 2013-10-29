@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 开启使用开发模式，详细错误提示 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 将对象交给spring管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 指定资源编码类型 -->
+	
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	
+	<!--  指定每次请求到达，重新加载资源文件 -->
+	<constant name="struts.i18n.reload" value="true" />
+	
+	<!-- 指定每次配置文件更改后，自动重新加载 -->
+	
+	 <constant name="struts.configuration.xml.reload" value="false" /> 
+	
+	<!-- 国际化资源文件 -->
+	
+	<constant name="struts.custom.i18n.resources" value="content/Language" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.action.extension" value="do,action,jhtml,," />
+	<!--  Struts Annotation  -->
+	<constant name="actionPackages" value="org.pku.cms.action" />
+	<package name="cms" extends="struts-default,json-default" namespace="/">
+	<default-interceptor-ref name="json"></default-interceptor-ref>
+   </package>
+	
+<!-- 	<package name="person" namespace="/test" extends="json-default"> 
+	非异步提交
+	<action name="persons_jump" class="org.pku.cms.action.PersonAction" method="execute">
+		<result name="SUCCESS">/pages/list.jsp</result>
+	</action>
+	异步提交,动态方法调用，DMI
+	<action name="personInfo" class="org.pku.cms.action.PersonAction">
+		<result name="personInfo" type="json"></result>
+		<result name="hello" type="json"></result>
+	</action>
+	
+	异步提交,非同太方法调用
+	<action name="allPersons" class="org.pku.cms.action.PersonAction" method="allPersons">
+		<result name="SUCCESS" type="json"></result>
+	</action>
+	
+	<action name="remove" class="org.pku.cms.action.PersonAction" method="remove">
+		<result name="SUCCESS" type="json"></result>
+	</action>
+	
+	<action name="save" class="org.pku.cms.action.PersonAction" method="save">
+		<result name="SUCCESS" type="json"></result>
+	</action>
+	 
+</package>-->
+</struts>
